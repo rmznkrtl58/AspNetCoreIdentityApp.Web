@@ -1,0 +1,27 @@
+﻿@using Microsoft.AspNetCore.Authorization
+
+@{
+    ViewData["Title"] = "OrderPermission";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+@inject IAuthorizationService _authorizationService 
+@if (_authorizationService.AuthorizeAsync(User, "Permissions.Permissions.Order.Delete").Result.Succeeded)
+{
+    <div class="alert alert-success" role="alert">
+        @ViewBag.message
+    </div>
+}
+@if (_authorizationService.AuthorizeAsync(User, "Permissions.Permissions.Stock.Delete").Result.Succeeded)
+{
+    <div class="alert alert-success" role="alert">
+        @ViewBag.message2
+    </div>
+}
+@if (_authorizationService.AuthorizeAsync(User, "Permissions.Permissions.Order.Read").Result.Succeeded)
+{
+    <div class="alert alert-success" role="alert">
+        @ViewBag.message3
+    </div>
+}
+
+

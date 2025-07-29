@@ -1,0 +1,123 @@
+﻿@using System.Security.Claims
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Admin Paneli</title>
+    <link rel="stylesheet" href="~/register/assets/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="~/register/assets/vendors/css/vendor.bundle.base.css">
+    <link rel="stylesheet" href="~/register/assets/css/style.css">
+    <link rel="shortcut icon" href="~/register/assets/images/favicon.ico" />
+    @await RenderSectionAsync("Css", required: false)
+</head>
+<body>
+    <div class="container-scroller">
+        <div class="container-fluid page-body-wrapper">
+            <nav class="sidebar sidebar-offcanvas" id="sidebar">
+                <ul class="nav">
+                    @await Component.InvokeAsync("UserProfileComponent")
+                    <li class="nav-item">
+                        <a class="nav-link"  href="/Default/UserList/" >
+                            <span class="menu-title">Kullanıcı Listesi</span>
+                            <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Default/ChangePassword/">
+                            <span class="menu-title">Şifre İşlemleri</span>
+                            <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Role/Index/">
+                            <span class="menu-title">Rol Listesi</span>
+                            <i class="mdi mdi-contacts menu-icon"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Default/UserInfo/">
+                            <span class="menu-title">Kullanıcı Bilgileri</span>
+                            <i class="mdi mdi-contacts menu-icon"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/UserClaim/Index/">
+                            <span class="menu-title">Claim Listesi</span>
+                            <i class="mdi mdi-contacts menu-icon"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/UserClaim/IstanbulPage/">
+                            <span class="menu-title">Claim(İstanbul)</span>
+                            <i class="mdi mdi-contacts menu-icon"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/UserClaim/ExchangeExpirePage/">
+                            <span class="menu-title">Claim(10 Gün)</span>
+                            <i class="mdi mdi-contacts menu-icon"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/UserClaim/AgeLimitPage/">
+                            <span class="menu-title">Claim(18 Yaş)</span>
+                            <i class="mdi mdi-contacts menu-icon"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/UserClaim/OrderPermissionPage/">
+                            <span class="menu-title">Claim(Order Permission)</span>
+                            <i class="mdi mdi-contacts menu-icon"></i>
+                        </a>
+                    </li>
+                    @if (User.HasClaim(x => x.Type == ClaimTypes.Role && x.Value == "Admin"))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Default/AdminPage/">
+                                <span class="menu-title">Admin Erişim Sayfası</span>
+                                <i class="mdi mdi-contacts menu-icon"></i>
+                            </a>
+                        </li>
+                    }
+                    <li class="nav-item">
+                        <a class="nav-link" asp-route-returnurl="/Login/SignIn" asp-controller="Login" asp-action="SignOut">
+                            <span class="menu-title">Çıkış Yap</span>
+                            <i class="mdi mdi-contacts menu-icon"></i>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="main-panel">
+                <div class="content-wrapper">
+                    @RenderBody()
+                </div>
+                <footer class="footer">
+                    <div class="container-fluid clearfix">
+                        <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © bootstrapdash.com 2020</span>
+                        <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free <a href="https://www.bootstrapdash.com/bootstrap-admin-template/" target="_blank">Bootstrap admin templates </a> from Bootstrapdash.com</span>
+                    </div>
+                </footer>
+               
+            </div>
+          
+        </div>
+    </div>
+    <script src="~/register/assets/vendors/js/vendor.bundle.base.js"></script>
+    <script src="~/register/assets/vendors/chart.js/Chart.min.js"></script>
+    <script src="~/register/assets/js/off-canvas.js"></script>
+    <script src="~/register/assets/js/hoverable-collapse.js"></script>
+    <script src="~/register/assets/js/misc.js"></script>
+    <script src="~/register/assets/js/chart.js"></script>
+    @await RenderSectionAsync("Scripts",required:false)
+    @*benim Scripts adında section oluşturup kullandığım scriptler layoutta geçerli olur
+        zorunluluğu false olarak belirtme sebebim her sayfada kullanmayacağım için.
+    *@
+</body>
+</html>

@@ -1,0 +1,30 @@
+﻿@model List<AssignRoleToUserViewModel>
+@{
+    ViewData["Title"] = "AssignRoleToUser";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">@ViewData["userName"] Adlı Kullanıya Ait Roller:</h4>
+            <p class="card-description">Kullanıcının Rolleri Aşağıda İşaretlidir Eğerki Rollerin Hiç Biri İşaretli Değilse Ozaman Hiç Bir Rol Atanmamıştır!</p>
+            <form class="forms-sample" method="post" asp-route-userId="@ViewBag.userId">
+                @for (int i = 0; i < Model.Count; i++)//backendimden gelen listedeki counta göre for döngüsüne tabi tut
+                {
+                    <div class="form-group">
+                        @*Hidden ile tutmuş olduğum Id ve Name Değerlerine göre işaretlediğimiz
+                            checkboxları otomatik olarak backende göndericem backend anlayacak.
+                        *@
+                        <input type="checkbox" class="form-check-input" asp-for="@Model[i].Exist" />
+                        <label class="form-check-label">@Model[i].Name</label>
+                        <input  type="hidden" asp-for="@Model[i].Name"/>
+                        <input  type="hidden" asp-for="@Model[i].Id"/>
+                    </div>
+                }
+                <button class="btn btn-gradient-primary mr-2">Rolü Ata</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+

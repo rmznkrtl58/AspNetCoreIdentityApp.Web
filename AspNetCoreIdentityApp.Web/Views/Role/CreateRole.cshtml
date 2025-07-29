@@ -1,0 +1,23 @@
+﻿@model CreateRoleViewModel
+@{
+    ViewData["Title"] = "CreateRole";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+<div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Rol Bilgileri:</h4>
+            <p class="card-description">Rol Kaydetme Paneli</p>
+            <form class="forms-sample" method="post" >
+                <div class="form-group">
+                    <label for="exampleInputName1">Rol Adı:</label>
+                    <input type="text" asp-for=Name class="form-control" id="exampleInputName1" placeholder="Rol Adını Giriniz">
+                </div>
+                <button class="btn btn-gradient-warning mr-2">Kaydet</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
