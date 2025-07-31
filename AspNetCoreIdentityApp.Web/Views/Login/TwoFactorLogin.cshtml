@@ -1,0 +1,102 @@
+﻿@model TwoFactorLoginViewModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Giriş Yap</title>
+    <link rel="stylesheet" href="~/register/assets/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="~/register/assets/vendors/css/vendor.bundle.base.css">
+    <link rel="stylesheet" href="~/register/assets/css/style.css">
+    <link rel="shortcut icon" href="~/register/assets/images/favicon.ico" />
+</head>
+<body>
+    <div class="container-scroller">
+        <div class="container-fluid page-body-wrapper full-page-wrapper">
+            <div class="content-wrapper d-flex align-items-center auth">
+                <div class="row flex-grow">
+
+                    @* <div class="row"> *@
+
+                        <div class="col-md-4  offset-md-4">
+
+                            <h4>İki Adımlı Kimlik Doğrulama</h4>
+                            <hr />
+
+                            <form asp-action="TwoFactorLogin" method="post">
+
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                                <div class="form-group">
+                                    <label asp-for="VerificationCode"></label>
+                                    <input asp-for="VerificationCode" class="form-control" />
+                                    <span asp-validation-for="VerificationCode" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+
+                                    <input type="checkbox" asp-for="IsRememberMe" /> Beni Hatırla
+                                </div>
+
+                                @if (Model.TwoFactorType == TwoFactor.MicrosoftAndGoogle)
+                                {
+                                    <div class="form-group">
+
+                                        <input type="checkbox" asp-for="IsRecoveryCode" /> Kurtarma kodu girmek için bu kutucuğu işaretleyiniz.
+                                    </div>
+                                }
+
+                                <div class="form-group">
+
+                                    <input type="submit" class="btn btn-success" value="Gönder" />
+
+                                    @if (Model.TwoFactorType == TwoFactor.Email)
+                                    {
+
+                                        <input class="btn btn-primary" type="button" id="sendEmail" value="Tekrar email gönder" />
+                                    }
+                                </div>
+                            </form>
+
+                            @if (Model.TwoFactorType == TwoFactor.Email || Model.TwoFactorType == TwoFactor.Phone)
+                            {
+
+                                <div class="alert alert-primary">
+
+                                    <span class="text-primary" id="minutes"></span> dakika <span class="text-primary" id="seconds"></span>  kaldı
+                                </div>
+
+                            }
+
+                            <div class="alert alert-info">
+
+                                @switch (Model.TwoFactorType)
+                                {
+
+                                    case TwoFactor.Phone:
+                                        <span>Telefonunuza gelen sms kodunu bu alana  giriniz.</span>
+                                        break;
+                                    case TwoFactor.Email:
+                                        <span>Email adresinize gelen kodu bu alana  giriniz.</span>
+                                        break;
+                                    case TwoFactor.MicrosoftAndGoogle:
+                                        <span>Microsoft/Google Authenticator uygulamanızdaki kodu bu alana giriniz.</span>
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            </div>
+                        </div>
+                    @* </div> *@
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/register/assets/vendors/js/vendor.bundle.base.js"></script>
+    <script src="~/register/assets/js/off-canvas.js"></script>
+    <script src="~/register/assets/js/hoverable-collapse.js"></script>
+    <script src="~/register/assets/js/misc.js"></script>
+</body>
+</html>

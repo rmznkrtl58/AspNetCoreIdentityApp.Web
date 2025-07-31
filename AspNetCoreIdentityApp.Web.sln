@@ -3,7 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetCoreIdentityApp.Web", "AspNetCoreIdentityApp.Web\AspNetCoreIdentityApp.Web.csproj", "{C345B898-77DD-4C19-A422-C82056B7C682}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCoreIdentityApp.Web", "AspNetCoreIdentityApp.Web\AspNetCoreIdentityApp.Web.csproj", "{C345B898-77DD-4C19-A422-C82056B7C682}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetCoreIdentityApp.Core", "AspNetCoreIdentityApp.Core\AspNetCoreIdentityApp.Core.csproj", "{15A55985-6A1D-4F2F-B514-79B223C6C657}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetCoreIdentityApp.Repository", "NetCoreIdentityApp.Repository\NetCoreIdentityApp.Repository.csproj", "{091C2334-13AC-43FF-86A0-75E53FAE3258}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetCoreIdentityApp.Service", "AspNetCoreIdentityApp.Service\AspNetCoreIdentityApp.Service.csproj", "{799FE980-0578-4F6D-B82A-1D89C1CE948B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +21,18 @@ Global
 		{C345B898-77DD-4C19-A422-C82056B7C682}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C345B898-77DD-4C19-A422-C82056B7C682}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C345B898-77DD-4C19-A422-C82056B7C682}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15A55985-6A1D-4F2F-B514-79B223C6C657}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15A55985-6A1D-4F2F-B514-79B223C6C657}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15A55985-6A1D-4F2F-B514-79B223C6C657}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15A55985-6A1D-4F2F-B514-79B223C6C657}.Release|Any CPU.Build.0 = Release|Any CPU
+		{091C2334-13AC-43FF-86A0-75E53FAE3258}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{091C2334-13AC-43FF-86A0-75E53FAE3258}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{091C2334-13AC-43FF-86A0-75E53FAE3258}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{091C2334-13AC-43FF-86A0-75E53FAE3258}.Release|Any CPU.Build.0 = Release|Any CPU
+		{799FE980-0578-4F6D-B82A-1D89C1CE948B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{799FE980-0578-4F6D-B82A-1D89C1CE948B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{799FE980-0578-4F6D-B82A-1D89C1CE948B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{799FE980-0578-4F6D-B82A-1D89C1CE948B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

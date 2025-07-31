@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using AspNetCoreIdentityApp.Web.Extensions;
-using AspNetCoreIdentityApp.Web.ViewModels;
+using AspNetCoreIdentityApp.Core.ViewModels;
 using Microsoft.AspNetCore.Identity;
-using AspNetCoreIdentityApp.Web.Entities;
-using AspNetCoreIdentityApp.Web.Services;
-using NuGet.Protocol.Core.Types;
+using AspNetCoreIdentityApp.Repository.Entities;
 using System.Security.Claims;
+using AspNetCoreIdentityApp.Service.ServiceInterfaces;
+using AspNetCoreIdentityApp.Core.Enums;
+using Microsoft.AspNetCore.Authorization;
 namespace AspNetCoreIdentityApp.Web.Controllers
 {
     public class LoginController : Controller
@@ -13,11 +14,13 @@ namespace AspNetCoreIdentityApp.Web.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly IEmailService _emailService;
-        public LoginController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, IEmailService emailService)
+        private readonly IMemberService _memberService;
+        public LoginController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, IEmailService emailService, IMemberService memberService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailService = emailService;
+            _memberService = memberService;
         }
         public IActionResult SignIn()
         {
@@ -40,16 +43,19 @@ namespace AspNetCoreIdentityApp.Web.Controllers
                 ModelState.AddModelError(string.Empty, "Mail Adresin Yanlıştır!");
                 return View();
             }
-
+           
             var signInResult = await _signInManager.PasswordSignInAsync(hasUser, p.Password, p.RememberMe, true);
-
             if (signInResult.IsLockedOut)//Eğer 3 den fazla yanlış şifre girilirse
             {
                 ModelState.AddModelErrorListExt(new List<string>() {
                 "3'den fazla yanlış giriş yapıldı! 3 dakika sonra tekrar deneyin"});
                 return View();
             }
-
+            //eğer login olan kullanıcımın iki adımlı doğrulaması aktif ise
+            if (signInResult.RequiresTwoFactor)
+            {
+                return RedirectToAction("TwoFactorLogin");
+            }
             if (!signInResult.Succeeded)
             {
                 int countOfLockouts = await _userManager.GetAccessFailedCountAsync(hasUser);
@@ -60,11 +66,48 @@ namespace AspNetCoreIdentityApp.Web.Controllers
             if (hasUser.BirthDate.HasValue)
             {
                 await _signInManager.SignInWithClaimsAsync(hasUser, p.RememberMe, new[]
-                {
+                   {
                     new Claim("birthDate",hasUser.BirthDate.Value.ToString())
-                });
+                    });
             }
-            return Redirect(returnUrl!);
+            return RedirectToAction("UserList", "Default");
+        }
+        [HttpGet]
+        public async Task<IActionResult> TwoFactorLogin()
+        {
+            //iki adımlı doğrulaması aktif olan kullanıcının logine tıkladığı an bu sayfaya gelecek ve bu sayfada cookiesinde twofactor.userId diye bir şey oluşacak o değeri user değişkenime attım.
+            var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
+            switch ((TwoFactor)user.TwoFactor)
+            {
+                case TwoFactor.None:
+                    break;
+                case TwoFactor.Phone:
+                    break;
+                case TwoFactor.Email:
+                    break;
+                case TwoFactor.MicrosoftAndGoogle:
+                    break;
+                default:
+                    break;
+            }
+            var TwoFactorLoginViewModel = new TwoFactorLoginViewModel()
+            {
+                IsRecoveryCode = false,//kurtarma kodunu checkbox
+                IsRememberMe = false,//beni hatırla
+                TwoFactorType = (TwoFactor)user.TwoFactor,//kullanıcının seçtiği kimlik doğrulama tipi
+                VerificationCode = string.Empty//Gireceğimiz kod
+            };
+            return View();
+        }
+        [HttpPost]
+        public IActionResult TwoFactorLogin(AuthenticatorViewModel p)
+        {
+            //eğerki buradan giriş yaparsa
+            //await _signInManager.SignInWithClaimsAsync(hasUser, p.RememberMe, new[]
+            //{
+            //        new Claim("birthDate",hasUser.BirthDate.Value.ToString())
+            //});
+            return View();
         }
         [HttpGet]
         public IActionResult ForgetPassword()
@@ -129,8 +172,7 @@ namespace AspNetCoreIdentityApp.Web.Controllers
         }
         public async Task SignOut()
         {
-            //IdentityExtension classımda LogOutPathi buraya verdim cs.html tarafında ise asp-route-returnurl ile nereye yönlendirmem gerektiğini yazdım.
-            await _signInManager.SignOutAsync();
+            await _memberService.SignOutAsync();
         }
     }
 }

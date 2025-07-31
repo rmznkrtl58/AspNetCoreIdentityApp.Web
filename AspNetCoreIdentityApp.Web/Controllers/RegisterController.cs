@@ -1,6 +1,6 @@
-﻿using AspNetCoreIdentityApp.Web.Entities;
+﻿using AspNetCoreIdentityApp.Repository.Entities;
 using AspNetCoreIdentityApp.Web.Extensions;
-using AspNetCoreIdentityApp.Web.ViewModels;
+using AspNetCoreIdentityApp.Core.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -32,6 +32,7 @@ namespace AspNetCoreIdentityApp.Web.Controllers
                 UserName=p.Username,
                 Email=p.Email,
                 PhoneNumber=p.Phone,
+                TwoFactor=0
             };
             var identityResult = await _userManager.CreateAsync(newUser,p.ConfirmPassword);
             if (!identityResult.Succeeded)

@@ -29,6 +29,12 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="/Default/TwoFactorAuth/">
+                            <span class="menu-title">Giriş İşlemleri</span>
+                            <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="/Default/ChangePassword/">
                             <span class="menu-title">Şifre İşlemleri</span>
                             <i class="mdi mdi-crosshairs-gps menu-icon"></i>
@@ -115,6 +121,8 @@
     <script src="~/register/assets/js/hoverable-collapse.js"></script>
     <script src="~/register/assets/js/misc.js"></script>
     <script src="~/register/assets/js/chart.js"></script>
+    <script src="~/lib/qr-code-js/qrcode.js"></script>
+    <script src="~/lib/qr-code-js/qrcode.min.js"></script>
     @await RenderSectionAsync("Scripts",required:false)
     @*benim Scripts adında section oluşturup kullandığım scriptler layoutta geçerli olur
         zorunluluğu false olarak belirtme sebebim her sayfada kullanmayacağım için.

@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\AspNetCoreIdentityApp.Repository\AspNetCoreIdentityApp.Repository.csproj" />
+	<ItemGroup>
+    <ProjectReference Include="..\AspNetCoreIdentityApp.Repository\AspNetCoreIdentityApp.Repository.csproj" />
+  </ItemGroup>
+
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AspNetCoreIdentityApp.Repository\AspNetCoreIdentityApp.Repository.csproj" />
+  <ItemGroup>
+    <ProjectReference Include="..\NetCoreIdentityApp.Repository\NetCoreIdentityApp.Repository.csproj" />
+  </ItemGroup>	<ItemGroup>
+		<ProjectReference Include="..\AspNetCoreIdentityApp.Repository\AspNetCoreIdentityApp.Repository.csproj" />
+	  <ItemGroup>
+    <ProjectReference Include="..\AspNetCoreIdentityApp.Repository\AspNetCoreIdentityApp.Repository.csproj" />
+  <ItemGroup>
+    <ProjectReference Include="..\NetCoreIdentityApp.Repository\NetCoreIdentityApp.Repository.csproj" />
+  </ItemGroup>
+
+</Project>

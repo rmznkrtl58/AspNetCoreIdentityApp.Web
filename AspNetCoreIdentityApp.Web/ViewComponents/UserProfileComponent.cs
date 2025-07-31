@@ -1,5 +1,5 @@
-﻿using AspNetCoreIdentityApp.Web.Entities;
-using AspNetCoreIdentityApp.Web.ViewModels;
+﻿using AspNetCoreIdentityApp.Repository.Entities;
+using AspNetCoreIdentityApp.Core.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,7 +19,7 @@ namespace AspNetCoreIdentityApp.Web.ViewComponents
             var findUser = await _userManager.FindByNameAsync(User.Identity!.Name!);
             var findInfo = new UserEditViewModel()
             {
-                Username = findUser.UserName,
+                Username = findUser!.UserName!,
                 City = findUser.City,
                 PictureUrl=findUser.Picture
             };

@@ -1,4 +1,4 @@
-using AspNetCoreIdentityApp.Web.Entities;
+using AspNetCoreIdentityApp.Repository.Entities;
 using AspNetCoreIdentityApp.Web.Extensions;
 using AspNetCoreIdentityApp.Web.Seeds;
 using Microsoft.AspNetCore.Identity;
@@ -8,8 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-//Identity Ve Claim Ext. Yapýlandýrmasý
-builder.Services.AddIdentityExt(builder.Configuration).AddClaimExt(builder.Configuration);
+//Identity,Claim,TwoFactor Ext. Yapýlandýrmasý
+builder.Services.AddIdentityExt(builder.Configuration).AddClaimExt(builder.Configuration).AddTwoFactorExt(builder.Configuration);
 
 var app = builder.Build();
 
@@ -25,6 +25,8 @@ using (var scope=app.Services.CreateScope())
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
+    //browserLink Kullanýmý
+    app.UseBrowserLink();
     app.UseExceptionHandler("/Home/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();

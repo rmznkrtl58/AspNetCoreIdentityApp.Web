@@ -1,16 +1,13 @@
-﻿using AspNetCoreIdentityApp.Web.ClaimProviders;
-using AspNetCoreIdentityApp.Web.Context;
-using AspNetCoreIdentityApp.Web.CustomValidations;
-using AspNetCoreIdentityApp.Web.Entities;
+﻿using AspNetCoreIdentityApp.Repository.Context;
+using AspNetCoreIdentityApp.Service.CustomValidations;
+using AspNetCoreIdentityApp.Repository.Entities;
 using AspNetCoreIdentityApp.Web.Localization;
-using AspNetCoreIdentityApp.Web.OptionsModels;
-using AspNetCoreIdentityApp.Web.Requirements;
-using AspNetCoreIdentityApp.Web.Services;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
+using AspNetCoreIdentityApp.Core.OptionsModels;
+using AspNetCoreIdentityApp.Service.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
+using AspNetCoreIdentityApp.Service.ServiceInterfaces;
 
 namespace AspNetCoreIdentityApp.Web.Extensions
 {
@@ -22,12 +19,15 @@ namespace AspNetCoreIdentityApp.Web.Extensions
             //DbContext Yapılandırması
             services.AddDbContext<AppDbContext>(opt =>
             {
-                opt.UseSqlServer(configuration.GetConnectionString("SqlCon"));
+                opt.UseSqlServer(configuration.GetConnectionString("SqlCon"),settings =>
+                {
+                    settings.MigrationsAssembly("NetCoreIdentityApp.Repository");
+                });
             });
 
             //Newlemelerden Kurtarmak
             services.AddScoped<IEmailService,EmailService>();
-
+            services.AddScoped<IMemberService,MemberService>();
             //SecurityStamp Yapılandırması
             services.Configure<SecurityStampValidatorOptions>(opt =>
             {   

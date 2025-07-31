@@ -1,5 +1,5 @@
 ﻿using AspNetCoreIdentityApp.Web.ClaimProviders;
-using AspNetCoreIdentityApp.Web.Permissions;
+using AspNetCoreIdentityApp.Core.Permissions;
 using AspNetCoreIdentityApp.Web.Requirements;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -36,21 +36,21 @@ namespace AspNetCoreIdentityApp.Web.Extensions
                 });
                 opt.AddPolicy("PermissionReadAndDeletePolicy", policy =>
                 {
-                    policy.RequireClaim("permission", Permissions.Permissions.Order.Delete);
-                    policy.RequireClaim("permission", Permissions.Permissions.Order.Read);
-                    policy.RequireClaim("permission", Permissions.Permissions.Stock.Delete);
+                    policy.RequireClaim("permission", Permissions.Order.Delete);
+                    policy.RequireClaim("permission", Permissions.Order.Read);
+                    policy.RequireClaim("permission", Permissions.Stock.Delete);
                 });
                 opt.AddPolicy("Permissions.Permissions.Order.Delete", policy =>
                 {
-                    policy.RequireClaim("permission", Permissions.Permissions.Order.Delete);
+                    policy.RequireClaim("permission", Permissions.Order.Delete);
                 });
                 opt.AddPolicy("Permissions.Permissions.Order.Read", policy =>
                 {
-                    policy.RequireClaim("permission", Permissions.Permissions.Order.Read);
+                    policy.RequireClaim("permission", Permissions.Order.Read);
                 });
                 opt.AddPolicy("Permissions.Permissions.Stock.Delete", policy =>
                 {
-                    policy.RequireClaim("permission", Permissions.Permissions.Stock.Delete);
+                    policy.RequireClaim("permission", Permissions.Stock.Delete);
                 });
             });
             return services;

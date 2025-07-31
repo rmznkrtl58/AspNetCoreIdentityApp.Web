@@ -1,0 +1,47 @@
+﻿@model AuthenticatorViewModel
+@{
+    ViewData["Title"] = "TwoFactorAuth";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+@if (ViewBag.warning != null)
+{
+    <div class="col-md-12">
+        <div class="alert alert-warning" role="alert">@ViewBag.warning</div>
+    </div>
+}
+@if (TempData["message"] != null)
+{
+    <div class="col-md-12">
+        <div class="alert alert-info" role="alert">@TempData["message"]</div>
+    </div>
+}
+<h2>İki Adımlı Doğrulama</h2>
+<div class="row">
+    <div class="col-md-12">
+    <form method="post">
+        <div class="form-group">
+            <label style="margin-top:5px;font-size:15px;font-weight:bold" >Doğrulama Seçiniz...</label>
+            <select asp-for="TwoFactorType" class="form-control" asp-items="Html.GetEnumSelectList<TwoFactor>()"></select>
+        </div>
+            @if (TempData["recoveryCodes"] != null)
+            {
+                <div class="col-md-12">
+                    <div class="alert alert-info" role="alert">
+                        Aşağıdaki kodları güvenli bir yerde saklayınız. Microsoft/Google Authenticator uygulamasını kullanamadığınız durumlarda bu kurtarma kodlarını kullanabilirsiniz.
+                    </div>
+                    <div class="alert alert-secondary">
+                        @foreach (var x in TempData["recoveryCodes"] as string[])
+                        {
+                            <strong class="text-dark">@x</strong>
+                        }
+                    </div>
+                </div>
+            }
+        <div class="form-group">
+            <button class="btn btn-warning">Güncelle</button>
+        </div>
+    </form>
+    </div>
+    
+</div>
+

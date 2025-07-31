@@ -1,4 +1,4 @@
-﻿using AspNetCoreIdentityApp.Web.ViewModels;
+﻿using AspNetCoreIdentityApp.Service.ServiceInterfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,14 +7,15 @@ namespace AspNetCoreIdentityApp.Web.Controllers
     [Authorize(Roles ="Admin")]
     public class UserClaimController : Controller
     {
+        private readonly IMemberService _memberService;
+
+        public UserClaimController(IMemberService memberService)
+        {
+            _memberService = memberService;
+        }
         public IActionResult Index()
         {
-            var claims = User.Claims.Select(x => new ClaimViewModel()
-            {
-                Issuer = x.Issuer,
-                Type = x.Type,
-                Value = x.Value
-            }).ToList();
+            var claims =_memberService.GetUserClaimsAsync(User);
             return View(claims);
         }
         [Authorize(Policy = "IstanbulPolicy")]//sadece Citysi istanbul olanlar erişebilir.
