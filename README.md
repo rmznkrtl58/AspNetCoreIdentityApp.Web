@@ -1,4 +1,4 @@
-📘 1. ASP.NET Core Üyelik Sistemi (Identity) Bu eğitim sayesinde:
+📘ASP.NET Core Üyelik Sistemi (Identity):
 
 -Üyelik sisteminin projelerde nasıl kurulacağını öğrendim.
 
